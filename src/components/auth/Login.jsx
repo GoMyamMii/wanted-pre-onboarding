@@ -9,6 +9,14 @@ const Login = () => {
   const [loginPassword, setLoginPassword] = useState("");
   const [isValid, setIsValid] = useState(false);
 
+  const token = localStorage.getItem("token");
+
+  useEffect(() => {
+    if (token) {
+      navigate("/");
+    }
+  }, []);
+
   const handleOnChangeEmail = (e) => {
     setLoginEmail(e.target.value);
   };
