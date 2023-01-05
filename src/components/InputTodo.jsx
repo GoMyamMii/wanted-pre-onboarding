@@ -1,15 +1,52 @@
-import React from "react";
+import axios from "axios";
+import React, { useState } from "react";
 import styled from "styled-components";
 
-const InputTodo = () => {
-  const handleOnClickAddTodo = () => {};
+const InputTodo = ({ todos, setTodos }) => {
+  const [todoTitle, setTodoTitle] = useState("");
+  const [todoContent, setTodoContent] = useState("");
+
+  const handleOnChangeTodoTitle = (e) => {
+    setTodoTitle(e.target.value);
+  };
+  const handleOnChangeTodoContent = (e) => {
+    setTodoContent(e.target.value);
+  };
+
+  const handleOnClickAddTodo = async (event) => {
+    event.preventDefault();
+    const newTodo = { title: todoTitle, content: todoContent };
+
+    const token = localStorage.getItem("token");
+    const response = await axios.post("http://localhost:8080/todos", newTodo, {
+      headers: { Authorization: token },
+    });
+
+    setTodos([...todos, response.data.data]);
+
+    setTodoTitle("");
+    setTodoContent("");
+  };
+
   return (
     <InputTodoContainer>
-      <StyledInput placeholder="제목을 입력하세요" />
-      <StyledInput placeholder="내용을 입력하세요" />
+      <StyledInput
+        placeholder="제목을 입력하세요"
+        value={todoTitle}
+        onChange={(e) => {
+          handleOnChangeTodoTitle(e);
+        }}
+      />
+      <StyledInput
+        placeholder="내용을 입력하세요"
+        value={todoContent}
+        onChange={(e) => {
+          handleOnChangeTodoContent(e);
+        }}
+      />
       <StyledButton
-        onClick={() => {
-          handleOnClickAddTodo();
+        onClick={(event) => {
+          handleOnClickAddTodo(event);
         }}
       >
         Add Todo

@@ -2,13 +2,13 @@ import React from "react";
 import styled from "styled-components";
 import Todo from "./Todo";
 
-const TodoList = () => {
+const TodoList = ({ todos, setTodos }) => {
   return (
     <TodoListContainer>
-      <h1>Todo</h1>
-      <Todo></Todo>
-      <Todo></Todo>
-      <Todo></Todo>
+      <h1>TodoList</h1>
+      {todos.map((todo) => {
+        return <Todo todo={todo} setTodos={setTodos} key={todo.id} />;
+      })}
     </TodoListContainer>
   );
 };
