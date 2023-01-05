@@ -2,37 +2,31 @@ import React from "react";
 import styled from "styled-components";
 
 const Todo = () => {
-  const handleOnClickUpdate = () => {};
   const handleOnClickDelete = () => {};
   return (
     <TodoContainer>
-      <H3>Title</H3>
-      <BtnContainer>
-        <StyledBtn
-          onClick={() => {
-            handleOnClickUpdate();
-          }}
-        >
-          Update
-        </StyledBtn>
-        <StyledBtn
-          onClick={() => {
-            handleOnClickDelete();
-          }}
-        >
-          Delete
-        </StyledBtn>
-      </BtnContainer>
+      <TitleContentContainer>
+        <TitleBox>Title</TitleBox>
+        <ContentBox>Content</ContentBox>
+      </TitleContentContainer>
+      <StyledBtn
+        onClick={() => {
+          handleOnClickDelete();
+        }}
+      >
+        Delete
+      </StyledBtn>
     </TodoContainer>
   );
 };
 
 const TodoContainer = styled.div`
-  width: 400px;
+  width: 800px;
   background-color: #ddd;
   border-radius: 10px;
   padding: 12px;
   margin-bottom: 20px;
+  display: flex;
 `;
 
 const StyledBtn = styled.button`
@@ -45,15 +39,17 @@ const StyledBtn = styled.button`
   border: none;
 `;
 
-const BtnContainer = styled.div`
-  display: flex;
-  justify-content: center;
+const TitleContentContainer = styled.div`
+  width: 670px;
+  margin-left: 10px;
 `;
 
-const H3 = styled.h3`
-  display: flex;
-  justify-content: center;
+const TitleBox = styled.h3`
   margin: 10px auto;
+`;
+
+const ContentBox = styled.p`
+  margin: 10px 0;
 `;
 
 export default Todo;
