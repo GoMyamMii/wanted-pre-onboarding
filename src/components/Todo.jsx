@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 const Todo = ({ todo, setTodos }) => {
@@ -42,6 +42,10 @@ const Todo = ({ todo, setTodos }) => {
     }
   };
 
+  const handleOnClickCancel = () => {
+    setIsEdit(false);
+  };
+
   const handleOnClickDelete = async () => {
     await axios.delete(`http://localhost:8080/todos/${todo.id}`, {
       headers: { Authorization: token },
@@ -78,29 +82,40 @@ const Todo = ({ todo, setTodos }) => {
       </InputTodoContainer>
 
       {isEdit ? (
-        <StyledBtn
-          onClick={() => {
-            handleOnClickEdit();
-          }}
-        >
-          Done
-        </StyledBtn>
+        <>
+          <StyledBtn
+            onClick={() => {
+              handleOnClickEdit();
+            }}
+          >
+            Done
+          </StyledBtn>
+          <StyledBtn
+            onClick={() => {
+              handleOnClickCancel();
+            }}
+          >
+            Cancel
+          </StyledBtn>
+        </>
       ) : (
-        <StyledBtn
-          onClick={() => {
-            handleOnClickEdit();
-          }}
-        >
-          Edit
-        </StyledBtn>
+        <>
+          <StyledBtn
+            onClick={() => {
+              handleOnClickEdit();
+            }}
+          >
+            Edit
+          </StyledBtn>
+          <StyledBtn
+            onClick={() => {
+              handleOnClickDelete();
+            }}
+          >
+            Delete
+          </StyledBtn>
+        </>
       )}
-      <StyledBtn
-        onClick={() => {
-          handleOnClickDelete();
-        }}
-      >
-        Delete
-      </StyledBtn>
     </TodoContainer>
   );
 };
